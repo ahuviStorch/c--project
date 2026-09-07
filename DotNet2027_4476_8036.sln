@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{9430966C-3EDD-4AC0-8608-8B440762880E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalFacade.csproj", "{DFDE64BB-D57A-4215-8B14-8A805078D38E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{DB3AFC62-1272-40C2-9931-5FC1A65AF371}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9430966C-3EDD-4AC0-8608-8B440762880E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9430966C-3EDD-4AC0-8608-8B440762880E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9430966C-3EDD-4AC0-8608-8B440762880E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9430966C-3EDD-4AC0-8608-8B440762880E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFDE64BB-D57A-4215-8B14-8A805078D38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFDE64BB-D57A-4215-8B14-8A805078D38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFDE64BB-D57A-4215-8B14-8A805078D38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFDE64BB-D57A-4215-8B14-8A805078D38E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB3AFC62-1272-40C2-9931-5FC1A65AF371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB3AFC62-1272-40C2-9931-5FC1A65AF371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB3AFC62-1272-40C2-9931-5FC1A65AF371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB3AFC62-1272-40C2-9931-5FC1A65AF371}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
