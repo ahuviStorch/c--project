@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DalFacade.DO;
+using DO;
+namespace DalApi;
 
-namespace DalApi
+public interface Istudent : ICrud<Student>
 {
-    internal interface Interface1
-    {
-    }
 }

@@ -1,3 +1,5 @@
-namespace DO;
 
-// יוגדרו כאן האנומרציות בהמשך לפי הצורך.
+namespace DO;
+internal class Enums
+{
+}

@@ -1,8 +1,11 @@
 namespace DO;
 
-/// <summary>
-/// ישות תשובה - PDS שטוח ופסיבי.
-/// </summary>
 public record Answer
+(
+    int Id,
+int QuestionId,
+    string Content
+)
 {
+    public Answer() : this(0, 0, string.Empty) { }
 }
