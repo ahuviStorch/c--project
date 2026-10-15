@@ -3,6 +3,7 @@ namespace DalFacade.DO
 {
     public record AnsToStudent
     (
+        int id,
         int StudentId,
         int TestId,
         int AnswerId,
@@ -10,6 +11,6 @@ namespace DalFacade.DO
     )
     {
         // Empty constructor (no parameters) - required according to the instructions
-        public AnsToStudent() : this(0, 0, 0, 0) { }
+        public AnsToStudent() : this(0, 0, 0, 0, 0) { }
     }
 }

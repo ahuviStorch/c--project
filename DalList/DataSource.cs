@@ -24,6 +24,7 @@ static internal class DataSource
         //Test
         internal const int TestInit = 1000;
         private static int Test_i = TestInit;
+        public static int NextTestId => Test_i++;
         public static int TestAnswerId => Test_i++;
         //Student
         internal const int StudentInit = 1000;
