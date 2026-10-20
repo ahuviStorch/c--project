@@ -4,6 +4,6 @@ using DO;
 
 namespace DalApi;
 
-public interface Iquestion: ICrud<Question>
+public interface IQuestion: ICrud<Question>
 {
 }

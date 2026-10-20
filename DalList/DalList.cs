@@ -7,9 +7,9 @@ namespace Dal;
 
 public class DalList:IDal
 {
-    public Istudent Student => new StudentImplementation();
-    public Itest Test => new TestImplementation();
-    public Iquestion Question => new QuestionImplementation();
-    public Ianswer Answer => new AnswerImplementation();
+    public IStudent Student => new StudentImplementation();
+    public ITest Test => new TestImplementation();
+    public IQuestion Question => new QuestionImplementation();
+    public IAnswer Answer => new AnswerImplementation();
     public IAnsToStudent AnsToStudent => new AnsToStudentImplementation();
 }

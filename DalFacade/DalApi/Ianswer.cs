@@ -2,6 +2,6 @@
 using DO;
 namespace DalApi;
 
-public interface Ianswer : ICrud<Answer>
+public interface IAnswer : ICrud<Answer>
 {
 }

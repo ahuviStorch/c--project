@@ -4,7 +4,7 @@ using DalFacade.DO;
 using DO;
 namespace Dal;
 
-internal class AnswerImplementation : Ianswer
+internal class AnswerImplementation : IAnswer
 {
     //create func
     public int Create(Answer item)

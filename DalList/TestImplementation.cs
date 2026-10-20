@@ -3,7 +3,7 @@ using DO;
 
 namespace Dal;
 
-internal class TestImplementation : Itest
+internal class TestImplementation : ITest
 {
     // delete
     public void Delete(int id)

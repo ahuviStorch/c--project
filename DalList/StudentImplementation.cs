@@ -5,7 +5,7 @@ using DO;
 namespace Dal;
 
 
-internal class StudentImplementation : Istudent
+internal class StudentImplementation : IStudent
 {
 
     //create func

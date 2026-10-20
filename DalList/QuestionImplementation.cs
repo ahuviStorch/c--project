@@ -3,7 +3,7 @@ using DO;
 
 namespace Dal;
 
-internal class QuestionImplementation : Iquestion
+internal class QuestionImplementation : IQuestion
 {
     // delete
     public void Delete(int id)

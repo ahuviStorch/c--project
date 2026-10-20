@@ -4,9 +4,9 @@ namespace DalApi;
 
 public interface IDal
 {
-    Ianswer Answer { get; }
-    Istudent Student { get; }
+    IAnswer Answer { get; }
+    IStudent Student { get; }
     IAnsToStudent AnsToStudent { get; }
-Iquestion Question { get; }
-    Itest Test { get; }
+IQuestion Question { get; }
+    ITest Test { get; }
 }
