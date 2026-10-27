@@ -1,17 +1,18 @@
 ﻿
 using DalFacade.DO;
 using DO;
+
 namespace Dal;
 
-static internal class DataSource
+internal static class DataSource
 {
-    static internal List<Answer?> Answers { get; } = new List<Answer?>();
-    static internal List<Student?> Students { get; } = new List<Student?>();
-    static internal List<AnsToStudent?> AnsToStudents { get; } = new List<AnsToStudent?>();
-    static internal List<Question?> Questions { get; } = new List<Question?>();
-    static internal List<Test?> Tests { get; } = new List<Test?>();
+    internal static List<Answer?> Answers { get; } = new List<Answer?>();
+    internal static List<Student?> Students { get; } = new List<Student?>();
+    internal static List<AnsToStudent?> AnsToStudents { get; } = new List<AnsToStudent?>();
+    internal static List<Question?> Questions { get; } = new List<Question?>();
+    internal static List<Test?> Tests { get; } = new List<Test?>();
 
-    static internal class Config
+    internal static class Config
     {
         //question
         internal const int QuestionInit = 1000;

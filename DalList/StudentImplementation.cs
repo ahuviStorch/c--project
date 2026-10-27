@@ -19,7 +19,7 @@ internal class StudentImplementation : IStudent
         return item.Id;
     }
 
- //read funcs
+    //read funcs
     public Student? Read(int id)
     {
         return DataSource.Students.FirstOrDefault(s => s?.Id == id);
@@ -31,7 +31,7 @@ internal class StudentImplementation : IStudent
         return new List<Student>(DataSource.Students!);
     }
 
-//update func
+    //update func
     public void Update(Student item)
     {
         Student? existingStudent = Read(item.Id);
@@ -42,7 +42,7 @@ internal class StudentImplementation : IStudent
         DataSource.Students.Add(item);
     }
 
-//delete func
+    //delete func
     public void Delete(int id)
     {
         Student? existingStudent = Read(id);

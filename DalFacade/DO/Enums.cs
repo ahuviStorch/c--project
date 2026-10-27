@@ -7,4 +7,4 @@ public enum Subject
     Science,
     Grammar,
     History
-}
+};

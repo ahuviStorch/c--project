@@ -10,7 +10,7 @@ public static class Initialization
 
     private static void CreateStudents()
     {
-        s_dal!.Student.Create(new Student(123456789, "ישראל ישראלי", 101, 85));
+        s_dal!.Student.Create(new Student(12345679, "ישראל ישראלי", 101, 85));
         s_dal.Student.Create(new Student(234567890, "משה כהן", 101, 90));
         s_dal.Student.Create(new Student(345678901, "דוד לוי", 102, 78));
         s_dal.Student.Create(new Student(456789012, "אברהם אברהמי", 102, 95));
@@ -74,9 +74,9 @@ public static class Initialization
     private static void CreateStudentQuestions()
     {
         // התשובות שנבחרו ע"י תלמידים במבחנים שונים
-        s_dal!.AnsToStudent.Create(new AnsToStudent(0, 123456789, 100, 1000, 1));
-        s_dal.AnsToStudent.Create(new AnsToStudent(1, 123456789, 100, 1001, 5));
-        s_dal.AnsToStudent.Create(new AnsToStudent(2, 234567890, 100, 1000, 1));
+        s_dal!.AnsToStudent.Create(new AnsToStudent(0, 12349, 100, 1000, 1));
+        s_dal.AnsToStudent.Create(new AnsToStudent(1, 1234569, 100, 1001, 5));
+        s_dal.AnsToStudent.Create(new AnsToStudent(2, 23456890, 100, 1000, 1));
         s_dal.AnsToStudent.Create(new AnsToStudent(3, 345678901, 101, 1007, 9));
         s_dal.AnsToStudent.Create(new AnsToStudent(4, 456789012, 101, 1007, 9));
     }
