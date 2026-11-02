@@ -64,7 +64,3 @@ public static class LogManager
 
 
 
-
-
-
-עכשיו הקוד כולו תקין?
