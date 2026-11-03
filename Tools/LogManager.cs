@@ -6,10 +6,13 @@ public static class LogManager
     private const string PATH = "Log";
     public static string GetPathDir()
     {
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string projectRoot = Directory.GetParent(baseDir)?.Parent?.Parent?.FullName ?? baseDir;
+        string path = Path.Combine(projectRoot, PATH, $"{DateTime.Now.Month}.{DateTime.Now.Year}");
 
-       string path = $@"{AppDomain.CurrentDomain.BaseDirectory}{PATH}\{DateTime.Now.Month}.{DateTime.Now.Year}";
-        if(Directory.Exists(path))
+        if (Directory.Exists(path))
             return path;
+
         Directory.CreateDirectory(path);
         return path;
     }
