@@ -40,8 +40,13 @@ public static class LogManager
     //פונקציית הניקוי
     public static void clear()
     {
-        if (!Directory.Exists(PATH)) return;
-        string[] directories = Directory.GetDirectories(PATH);
+        // תיקיית הלוג ממוקמת לצד תיקיית הפרויקט (כמו ב-GetPathDir), ולא ביחס לתיקיית העבודה
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string projectRoot = Directory.GetParent(baseDir)?.Parent?.Parent?.FullName ?? baseDir;
+        string logRoot = Path.Combine(projectRoot, PATH);
+
+        if (!Directory.Exists(logRoot)) return;
+        string[] directories = Directory.GetDirectories(logRoot);
         foreach (string dir in directories)
         {
             string dirName = Path.GetFileName(dir);

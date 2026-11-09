@@ -11,8 +11,9 @@ internal class QuestionImplementation : IQuestion
     {
         LogManager.write("DalList", "Delete", $"Deleting Question record with ID {id}.");
         Question? existingQuestion = Read(id);
-        if (existingQuestion is null)
-            throw new Exception($"Question with ID {id} does not exist.");
+        if (existingQuestion is null){
+            LogManager.write("DalList", "Delete", "\t\terror!!: delete question failed\n");
+            throw new Exception($"Question with ID {id} does not exist.");}
 
         DataSource.Questions.Remove(existingQuestion);
         LogManager.write("DalList", "Delete", $"Successfully deleted Question record with ID {id}.");
@@ -25,17 +26,20 @@ internal class QuestionImplementation : IQuestion
         int id = DataSource.Config.NextQuestionId;
         Question question = item with { Id = id };
         DataSource.Questions.Add(question);
-        LogManager.write("DalList", "Create", $"Successfully created Question record with ID {item.Id}.");
-                return id;
+        LogManager.write("DalList", "Create", $"Successfully created Question record with ID {id}.");
+        return id;
     }
 
     // read
     public Question? Read(int id)
     {
         LogManager.write("DalList", "Read", $"Reading Question record with ID {id}.");
-        LogManager.write("DalList", "Read", $"Successfully read Question record with ID {id}.");
-          return DataSource.Questions.FirstOrDefault(q => q?.Id == id);
-
+        Question? question = DataSource.Questions.FirstOrDefault(q => q?.Id == id);
+        if (question is null)
+            LogManager.write("DalList", "Read", $"\t\terror!!: read question failed, ID {id} not found\n");
+        else
+            LogManager.write("DalList", "Read", $"Successfully read Question record with ID {id}.");
+        return question;
     }
 
     // read all
@@ -51,8 +55,10 @@ internal class QuestionImplementation : IQuestion
     {
         LogManager.write("DalList", "Update", $"Updating Question record with ID {item.Id}.");
         Question? existingQuestion = Read(item.Id);
-        if (existingQuestion is null)
+        if (existingQuestion is null){
+            LogManager.write("DalList", "Update", "\t\terror!!: update question failed\n");
             throw new Exception($"Question with ID {item.Id} does not exist.");
+        }
 
         DataSource.Questions.Remove(existingQuestion);
         DataSource.Questions.Add(item);

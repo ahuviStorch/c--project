@@ -14,7 +14,7 @@ internal class AnsToStudentImplementation : IAnsToStudent
         AnsToStudent? existingAns = Read(id);
         if (existingAns is null)
         {
-            LogManager.write("DalList", "delete", "\t\terror!!: delete ans to student failed\n");
+            LogManager.write("DalList", "Delete", "\t\terror!!: delete ans to student failed\n");
             throw new Exception($"AnsToStudent record with ID {id} does not exist.");
 
         }
@@ -29,8 +29,10 @@ internal class AnsToStudentImplementation : IAnsToStudent
         LogManager.write("DalList", "Create", $"Creating AnsToStudent record with ID {item.id}.");
         AnsToStudent? existingAns = Read(item.id);
         if (existingAns is not null)
+        {
+            LogManager.write("DalList", "Create", "\t\terror!!: create ans to student failed\n");
             throw new Exception($"AnsToStudent record with ID {item.id} already exists.");
-
+        }
         DataSource.AnsToStudents.Add(item);
         LogManager.write("DalList", "Create", $"Successfully created AnsToStudent record with ID {item.id}.");
                 return item.id; 
@@ -41,9 +43,13 @@ internal class AnsToStudentImplementation : IAnsToStudent
     public AnsToStudent? Read(int id)
     {
         LogManager.write("DalList", "Read", $"Reading AnsToStudent record with ID {id}.");
-        LogManager.write("DalList", "Read", $"Successfully read AnsToStudent record with ID {id}.");
-        return DataSource.AnsToStudents.FirstOrDefault(a => a?.id == id);
-    }   
+        AnsToStudent? ans = DataSource.AnsToStudents.FirstOrDefault(a => a?.id == id);
+        if (ans is null)
+            LogManager.write("DalList", "Read", $"\t\terror!!: read ans to student failed, ID {id} not found\n");
+        else
+            LogManager.write("DalList", "Read", $"Successfully read AnsToStudent record with ID {id}.");
+        return ans;
+    }
 
     // read all
     public List<AnsToStudent> ReadAll()
@@ -58,9 +64,10 @@ internal class AnsToStudentImplementation : IAnsToStudent
     {
         LogManager.write("DalList", "Update", $"Updating AnsToStudent record with ID {item.id}.");
         AnsToStudent? existingAns = Read(item.id);
-        if (existingAns is null)
+        if (existingAns is null){
+            LogManager.write("DalList", "Update", "\t\terror!!: update ans to student failed\n");
             throw new Exception($"AnsToStudent record with ID {item.id} does not exist.");
-
+        }
         DataSource.AnsToStudents.Remove(existingAns);
         DataSource.AnsToStudents.Add(item);
         LogManager.write("DalList", "Update", $"Successfully updated AnsToStudent record with ID {item.id}.");

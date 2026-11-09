@@ -15,7 +15,7 @@ internal class AnswerImplementation : IAnswer
         int id = DataSource.Config.NextAnswerId;
         Answer answer = new Answer(id, item.QuestionId, item.Content);
         DataSource.Answers.Add(answer);
-        LogManager.write("DalList", "Create", $"Successfully created Answer record with ID {item.Id}.");
+        LogManager.write("DalList", "Create", $"Successfully created Answer record with ID {id}.");
         return id;
     }
 
@@ -23,8 +23,12 @@ internal class AnswerImplementation : IAnswer
     public Answer? Read(int id)
     {
         LogManager.write("DalList", "Read", $"Reading Answer record with ID {id}.");
-        LogManager.write("DalList", "Read", $"Successfully read Answer record with ID {id}.");
-        return DataSource.Answers.FirstOrDefault(a => a?.Id == id);
+        Answer? answer = DataSource.Answers.FirstOrDefault(a => a?.Id == id);
+        if (answer is null)
+            LogManager.write("DalList", "Read", $"\t\terror!!: read answer failed, ID {id} not found\n");
+        else
+            LogManager.write("DalList", "Read", $"Successfully read Answer record with ID {id}.");
+        return answer;
     }
     public List<Answer> ReadAll()
     {
@@ -38,8 +42,10 @@ internal class AnswerImplementation : IAnswer
     {
         LogManager.write("DalList", "Update", $"Updating Answer record with ID {item.Id}.");
         Answer? existingAnswer = Read(item.Id);
-        if (existingAnswer is null)
+        if (existingAnswer is null){
+            LogManager.write("DalList", "Update", "\t\terror!!: update answer failed\n");   
             throw new Exception($"Answer with ID {item.Id} does not exist.");
+        }
         DataSource.Answers.Remove(existingAnswer);
         DataSource.Answers.Add(item);
         LogManager.write("DalList", "Update", $"Successfully updated Answer record with ID {item.Id}.");
@@ -51,8 +57,9 @@ internal class AnswerImplementation : IAnswer
     {
         LogManager.write("DalList", "Delete", $"Deleting Answer record with ID {id}.");
         Answer? existingAnswer = Read(id);
-        if (existingAnswer is null)
-            throw new Exception($"Answer with ID {id} does not exist.");
+        if (existingAnswer is null){
+            LogManager.write("DalList", "Delete", "\t\terror!!: delete answer failed\n");
+            throw new Exception($"Answer with ID {id} does not exist.");}
         DataSource.Answers.Remove(existingAnswer);
         LogManager.write("DalList", "Delete", $"Successfully deleted Answer record with ID {id}.");
     }
