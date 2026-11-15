@@ -6,7 +6,7 @@ using DO;
 using Tools;
 namespace DalTest;
 
-internal partial class Program
+internal class Program
 {
     private static readonly IDal s_dal = new Dal.DalList();
 
@@ -50,11 +50,25 @@ internal partial class Program
                 }
             }
         }
+
+        catch (DalIdNotFound ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            LogManager.write("DalTest", "Main", $"Error: {ex.Message}");
+        }
+        catch (DalIdAlreadyExist ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            LogManager.write("DalTest", "Main", $"Error: {ex.Message}");
+        }
+    
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
             LogManager.write("DalTest", "Main", $"Error: {ex.Message}");
         }
+
+
     }
 
     private static void crudMenu<T>(ICrud<T> crud, string entityName, Func<T> askFunc) where T : class
@@ -98,7 +112,10 @@ internal partial class Program
                     case "readAll":
                         {
                             foreach (var item in crud.ReadAll())
-                                Console.WriteLine(item);
+                            {
+                                if (item is not null)
+                                    Console.WriteLine(item);
+                            }
                             flag = false;
                         }
                         break;
@@ -118,9 +135,21 @@ internal partial class Program
                         break;
                 }
             }
+            catch (DalIdNotFound ex)
+            {
+                // הפעולה לא בוצעה כי המזהה המבוקש לא קיים (בקריאה / עדכון / מחיקה)
+                Console.WriteLine($"Error: {ex.Message}");
+                LogManager.write("DalTest", "crudMenu", $"Id not found in {entityName}: {ex.Message}");
+            }
+            catch (DalIdAlreadyExist ex)
+            {
+                // הפעולה לא בוצעה כי קיים כבר רשומה עם אותו מזהה (ביצירה)
+                Console.WriteLine($"Error: {ex.Message}");
+                LogManager.write("DalTest", "crudMenu", $"Id already exist in {entityName}: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                // כשל בפעולה (למשל מזהה לא קיים) - רושמים ללוג ומאפשרים לבחור פעולה אחרת
+                // תקלה אחרת שאינה צפויה - רושמים ללוג ומאפשרים לבחור פעולה אחרת
                 Console.WriteLine($"Error: {ex.Message}");
                 LogManager.write("DalTest", "crudMenu", $"Error in {entityName}: {ex.Message}");
             }

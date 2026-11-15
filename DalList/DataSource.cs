@@ -27,10 +27,6 @@ internal static class DataSource
         internal const int TestInit = 1000;
         private static int Test_i = TestInit;
         public static int NextTestId => Test_i++;
-        //Student
-        internal const int StudentInit = 1000;
-        private static int Student_i = StudentInit;
-        public static int NextStudentId => Student_i++;
         //AnsToStudent
         internal const int AnsToStudentInit = 1000;
         private static int AnsToStudent_i = AnsToStudentInit;

@@ -10,11 +10,12 @@ internal class QuestionImplementation : IQuestion
     public void Delete(int id)
     {
         LogManager.write("DalList", "Delete", $"Deleting Question record with ID {id}.");
-        Question? existingQuestion = Read(id);
+        Question? existingQuestion = (from q in DataSource.Questions
+                                     where q?.Id == id
+                                     select q).FirstOrDefault();
         if (existingQuestion is null){
             LogManager.write("DalList", "Delete", "\t\terror!!: delete question failed\n");
-            throw new Exception($"Question with ID {id} does not exist.");}
-
+            throw new DalIdNotFound($"Question with ID {id} does not exist.");}
         DataSource.Questions.Remove(existingQuestion);
         LogManager.write("DalList", "Delete", $"Successfully deleted Question record with ID {id}.");
     }
@@ -31,33 +32,58 @@ internal class QuestionImplementation : IQuestion
     }
 
     // read
+    public Question? Read(Func<Question, bool> filter)
+    {
+        LogManager.write("DalList", "Read", "Reading Question record.");
+        Question? question = (from q in DataSource.Questions
+                                     where filter(q)
+                                     select q).FirstOrDefault();
+        if (question is null)
+        {
+            LogManager.write("DalList", "Read", $"\t\terror!!: read question failed\n");
+        }
+        else
+            LogManager.write("DalList", "Read", $"Successfully read Question record.");
+        return question;
+    }
     public Question? Read(int id)
     {
-        LogManager.write("DalList", "Read", $"Reading Question record with ID {id}.");
-        Question? question = DataSource.Questions.FirstOrDefault(q => q?.Id == id);
+        LogManager.write("DalList", "Read", "Reading Question record.");
+        Question? question = (from q in DataSource.Questions
+                                     where q?.Id == id
+                                     select q).FirstOrDefault();
         if (question is null)
-            LogManager.write("DalList", "Read", $"\t\terror!!: read question failed, ID {id} not found\n");
+        {
+            LogManager.write("DalList", "Read", $"\t\terror!!: read question failed\n");
+            throw new DalIdNotFound($"Question with ID {id} does not exist.");
+        }
         else
-            LogManager.write("DalList", "Read", $"Successfully read Question record with ID {id}.");
+            LogManager.write("DalList", "Read", $"Successfully read Question record.");
         return question;
     }
 
     // read all
-    public List<Question> ReadAll()
+    public List<Question?> ReadAll(Func<Question, bool>? filter = null)
     {
         LogManager.write("DalList", "ReadAll", "Reading all Question records.");
+
+        List<Question?> questions = (from q in DataSource.Questions
+                                     where q is not null && (filter == null || filter(q))
+                                     select q).ToList();
         LogManager.write("DalList", "ReadAll", "Successfully read all Question records.");
-                return new List<Question>(DataSource.Questions!);
+         return questions;
     }
 
     // update
     public void Update(Question item)
     {
         LogManager.write("DalList", "Update", $"Updating Question record with ID {item.Id}.");
-        Question? existingQuestion = Read(item.Id);
+        Question? existingQuestion = (from q in DataSource.Questions
+                                     where q?.Id == item.Id
+                                     select q).FirstOrDefault();
         if (existingQuestion is null){
             LogManager.write("DalList", "Update", "\t\terror!!: update question failed\n");
-            throw new Exception($"Question with ID {item.Id} does not exist.");
+            throw new DalIdNotFound($"Question with ID {item.Id} does not exist.");
         }
 
         DataSource.Questions.Remove(existingQuestion);

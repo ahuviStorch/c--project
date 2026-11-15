@@ -1,5 +1,4 @@
 ﻿using DalApi;
-using DalFacade.DO;
 using DO;
 using Tools;
 
@@ -13,10 +12,12 @@ internal class StudentImplementation : IStudent
     public int Create(Student item)
     {
         LogManager.write("DalList", "Create", $"Creating Student record with ID {item.Id}.");
-        Student? existingStudent = Read(item.Id);
+        Student? existingStudent = (from s in DataSource.Students
+                                    where s?.Id == item.Id
+                                    select s).FirstOrDefault();
         if (existingStudent is not null){
             LogManager.write("DalList", "Create", "\t\terror!!: create student failed\n");
-            throw new Exception($"Student with ID {item.Id} already exists.");
+            throw new DalIdAlreadyExist($"Student with ID {item.Id} already exists.");
         }
 
         DataSource.Students.Add(item);
@@ -25,33 +26,54 @@ internal class StudentImplementation : IStudent
     }
 
     //read funcs
-    public Student? Read(int id)
+    public Student? Read(Func<Student, bool> filter)
     {
-        LogManager.write("DalList", "Read", $"Reading Student record with ID {id}.");
-        Student? student = DataSource.Students.FirstOrDefault(s => s?.Id == id);
+        LogManager.write("DalList", "Read", "Reading Student record.");
+        Student? student = (from s in DataSource.Students
+                             where filter(s)
+                             select s).FirstOrDefault();
         if (student is null)
-            LogManager.write("DalList", "Read", $"\t\terror!!: read student failed, ID {id} not found\n");
+            LogManager.write("DalList", "Read", $"\t\terror!!: read student failed\n");
         else
-            LogManager.write("DalList", "Read", $"Successfully read Student record with ID {id}.");
+            LogManager.write("DalList", "Read", $"Successfully read Student record.");
         return student;
     }
 
+    public Student? Read(int id)
+    {
+        LogManager.write("DalList", "Read", "Reading Student record.");
+        Student? student = (from s in DataSource.Students
+                             where s?.Id == id
+                             select s).FirstOrDefault();
+        if (student is null){
+            LogManager.write("DalList", "Read", $"\t\terror!!: read student failed\n");
+            throw new DalIdNotFound($"Student with ID {id} does not exist.");
+        }
+        else
+            LogManager.write("DalList", "Read", $"Successfully read Student record.");
+        return student;
+    }
 
-    public List<Student> ReadAll()
+    public List<Student?> ReadAll(Func<Student, bool>? filter = null)
     {
         LogManager.write("DalList", "ReadAll", "Reading all Student records.");
+        List<Student?> students = (from s in DataSource.Students
+                                     where s is not null && (filter == null || filter(s))
+                                     select s).ToList();
         LogManager.write("DalList", "ReadAll", "Successfully read all Student records.");
-        return new List<Student>(DataSource.Students!);
+        return students;
     }
 
     //update func
     public void Update(Student item)
     {
         LogManager.write("DalList", "Update", $"Updating Student record with ID {item.Id}.");
-        Student? existingStudent = Read(item.Id);
+        Student? existingStudent = (from s in DataSource.Students
+                                     where s?.Id == item.Id
+                                     select s).FirstOrDefault();
         if (existingStudent is null){
             LogManager.write("DalList", "Update", "\t\terror!!: update student failed\n");
-            throw new Exception($"Student with ID {item.Id} does not exist.");
+            throw new DalIdNotFound($"Student with ID {item.Id} does not exist.");
         }
         DataSource.Students.Remove(existingStudent);
         DataSource.Students.Add(item);
@@ -62,10 +84,12 @@ internal class StudentImplementation : IStudent
     public void Delete(int id)
     {
         LogManager.write("DalList", "Delete", $"Deleting Student record with ID {id}.");
-        Student? existingStudent = Read(id);
+        Student? existingStudent = (from s in DataSource.Students
+                                     where s?.Id == id
+                                     select s).FirstOrDefault();
         if (existingStudent is null){
             LogManager.write("DalList", "Delete", "\t\terror!!: delete student failed\n");
-            throw new Exception($"Student with ID {id} does not exist.");
+            throw new DalIdNotFound($"Student with ID {id} does not exist.");
         }
 
         DataSource.Students.Remove(existingStudent);
