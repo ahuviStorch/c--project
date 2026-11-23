@@ -1,5 +1,4 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using DalFacade.DO;
 using DalTest;
 using DO;
@@ -8,7 +7,7 @@ namespace DalTest;
 
 internal class Program
 {
-    private static readonly IDal s_dal = new Dal.DalList();
+    private static readonly IDal s_dal = DalApi.Factory.Get;
 
     public static void Main(string[] args)
     {
@@ -16,7 +15,7 @@ internal class Program
         try
         {
             // אתחול בסיס הנתונים
-            Initialization.Initialize(s_dal);
+            Initialization.Initialize();
             bool exit = false;
             while (!exit)
             {

@@ -7,5 +7,10 @@
     <RootNamespace></RootNamespace>
     <BaseOutputPath>..\bin\</BaseOutputPath>
   </PropertyGroup>
+  <ItemGroup>
+  <None Include="..\xml\dal-config.xml" Link="xml\dal-config.xml"
+        CopyToOutputDirectory="PreserveNewest" />
+</ItemGroup>
+
 
 </Project>

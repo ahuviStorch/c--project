@@ -81,9 +81,9 @@ public static class Initialization
         s_dal.AnsToStudent.Create(new AnsToStudent(4, 456789012, 101, 1007, 9));
     }
 
-    public static void Initialize(IDal dal)
+    public static void Initialize()
     {
-        s_dal = dal ?? throw new ArgumentNullException(nameof(dal));
+        s_dal = DalApi.Factory.Get;
 
         CreateStudents();
         CreateTest();
